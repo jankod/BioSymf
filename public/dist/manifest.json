@@ -1,0 +1,10 @@
+{
+  "dist/base.css": "/dist/base.css",
+  "dist/base.js": "/dist/base.js",
+  "dist/runtime.js": "/dist/runtime.js",
+  "dist/fonts/fa-solid-900.ttf": "/dist/fonts/fa-solid-900.1709a281.ttf",
+  "dist/fonts/fa-solid-900.woff": "/dist/fonts/fa-solid-900.52b8345b.woff",
+  "dist/fonts/fa-solid-900.woff2": "/dist/fonts/fa-solid-900.8086e197.woff2",
+  "dist/fonts/fa-solid-900.eot": "/dist/fonts/fa-solid-900.f72d546a.eot",
+  "dist/images/fa-solid-900.svg": "/dist/images/fa-solid-900.27603739.svg"
+}

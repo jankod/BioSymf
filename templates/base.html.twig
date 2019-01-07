@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {% block stylesheets %}
+        <link href="{{ asset('dist/base.css') }}" rel="stylesheet"/>
+    {% endblock %}
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+
+</head>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+{{ include('default/_header.html.twig') }}
+
+<div class="app-body">
+    {# INCLUDE SIDEBAR #}
+{{ include('default/_sidebar.html.twig') }}
+
+    <main class="main">
+
+        {# include breadcrumb #}
+
+        <div class="container-fluid">
+            <div id="ui-view">
+                <section>
+                    {% block body %}{% endblock %}
+                </section>
+            </div>
+        </div>
+    </main>
+
+    {#include aside #}
+
+</div>
+
+
+<footer class="app-footer">
+    <div>
+        <a href="#">Bio web</a>
+        <span>© 2018 creativeLabs.</span>
+    </div>
+    <div class="m-2">User: --
+    </div>
+    <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">Bio web</a>
+    </div>
+</footer>
+
+
+{% block javascripts %}
+    <script src="{{ asset('dist/base.js') }}"></script>
+    <script src="{{ asset('dist/runtime.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
+
