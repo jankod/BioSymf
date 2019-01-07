@@ -1,8 +1,3 @@
-<!DOCTYPE HTML>
-<html lang="hr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-</head>
-<body>
 <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
@@ -111,36 +106,33 @@
             </div>
         </li>
 
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item dropdown">
 
-        <!--{# User Login button #}-->
-        <!--{% if user.is_authenticated %}-->
-        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
-                <img class="img-avatar" src="" th:src="@{img/icons8-user-50.png}" alt="admin@bootstrapmaster.com">
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header text-center">
-                    <strong>Account</strong>
+                <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">
+                    <img class="img-avatar" src="{{ asset('img/icons8-user-50.png') }}" alt="user">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+
+
+                    <div class="divider"></div>
+
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out</a>
                 </div>
 
-                <!--{% if user.is_staff %}-->
-                <a class="dropdown-item" href="admin:index">
-                    <i class="fas fa-user-cog"></i>
-                    Admin <span sec:authentication="name"></span>
-                </a>
-                <!--{% endif %}-->
+            </li>
+        {% else %}
+            <li class="nav-item px-3">
+                <a class="nav-link" href="{{ path('app_login') }}">
+                    <i class="fas fa-sign-in-alt"></i> Sign In</a>
+            </li>
+        {% endif %}
 
-
-                <div class="divider"></div>
-                <a class="dropdown-item" href="#">
-                    <i class="fa fa-shield"></i> Lock Account</a>
-
-                <a class="dropdown-item" href="logout" th:href="@{/logout}">
-                    <i class="fas fa-lock"></i> Sign Out</a>
-            </div>
-        </li>
-        <!--{% endif %}-->
 
     </ul>
     <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
@@ -150,5 +142,3 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </header>
-</body>
-</html>

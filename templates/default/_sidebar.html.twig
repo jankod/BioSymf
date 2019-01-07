@@ -1,19 +1,14 @@
-<!DOCTYPE HTML>
-<html lang="hr" xmlns:th="http://www.thymeleaf.org">
-<head>
-</head>
-<body>
-<div th:fragment="sidebar" class="sidebar">
+<div class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="dashboard" th:href="@{/}">
+                <a class="nav-link" href="dashboard" >
                     <i class="nav-icon icon-speedometer"></i> Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="app_project_list" th:href="@{/projects}">
+                <a class="nav-link" href="{{ path('projects') }}">
                     <i class="nav-icon fas fa-pencil-alt"></i> Project</a>
             </li>
             <li class="nav-item ">
@@ -30,5 +25,3 @@
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
 </div>
-</body>
-</html>

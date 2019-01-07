@@ -1,15 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: IRB
- * Date: 6.1.2019.
- * Time: 22:26
- */
 
 namespace App\Repository;
 
 
-class PathwaysAbundanceRepository
+use App\Entity\PathwaysAbundance;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
+class PathwaysAbundanceRepository extends ServiceEntityRepository
 {
+
+
+    public function __construct(RegistryInterface $registry)
+    {
+        parent::__construct($registry, PathwaysAbundance::class);
+    }
 
 }
