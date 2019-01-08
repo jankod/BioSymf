@@ -8,7 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     {% block stylesheets %}
-        <link href="{{ asset('dist/base.css') }}" rel="stylesheet"/>
+        {#<link href="{{ asset('dist/base.css') }}" rel="stylesheet"/>#}
+        {{ encore_entry_link_tags('app') }}
+
     {% endblock %}
 
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -21,18 +23,19 @@
 {{ include('default/_header.html.twig') }}
 
 <div class="app-body">
-    {# INCLUDE SIDEBAR #}
-{{ include('default/_sidebar.html.twig') }}
+    {{ include('default/_sidebar.html.twig') }}
 
     <main class="main">
-
-        {# include breadcrumb #}
+        {{ include('default/_breadcrumb.html.twig') }}
 
         <div class="container-fluid">
             <div id="ui-view">
-                <section>
-                    {% block body %}{% endblock %}
-                </section>
+                <div>
+                    <div >
+                        {#class="animated fadeIn"#}
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -57,8 +60,10 @@
 
 
 {% block javascripts %}
-    <script src="{{ asset('dist/base.js') }}"></script>
-    <script src="{{ asset('dist/runtime.js') }}"></script>
+    {#<script src="{{ asset('dist/base.js') }}"></script>#}
+    {#<script src="{{ asset('dist/runtime.js') }}"></script>#}
+
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
 </body>

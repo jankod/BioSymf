@@ -1,8 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProjectController!{% endblock %}
+{% block title %}Project index{% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col">
+            <div class="card">
 
-    Index project
+                <div class="card-header">Projects</div>
+
+                <div class="card-body">
+
+
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>StartDate</th>
+                            <th>EndDate</th>
+                            <th>IsPublic</th>
+                            <th>Status</th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td>{{ project.id }}</td>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.description }}</td>
+                                <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ project.isPublic ? 'Yes' : 'No' }}</td>
+                                <td>{{ project.status }}</td>
+                                <td>
+                                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
+                                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <a href="{{ path('project_new') }}">Create new</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
