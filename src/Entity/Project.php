@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,6 +65,22 @@ class Project
      */
     private $status;
 
+    /**
+     * @var ArrayCollection|Sample[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Sample", mappedBy="project", orphanRemoval=true)
+     */
+    private $samples;
+
+    public function __construct()
+    {
+        $this->samples = new ArrayCollection();
+    }
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     public function getId(): ?int
     {
@@ -172,5 +189,22 @@ class Project
         return $this->status;
     }
 
+    /**
+     * @param Sample[]|ArrayCollection $samples
+     * @return Project
+     */
+    public function setSamples($samples)
+    {
+        $this->samples = $samples;
+        return $this;
+    }
+
+    /**
+     * @return Sample[]|ArrayCollection
+     */
+    public function getSamples()
+    {
+        return $this->samples;
+    }
 
 }

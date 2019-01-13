@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SampleFile{% endblock %}
+
+{% block body %}
+    <h1>Edit SampleFile</h1>
+
+    {{ include('sample_file/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('sample_file_index') }}">back to list</a>
+
+    {{ include('sample_file/_delete_form.html.twig') }}
+{% endblock %}

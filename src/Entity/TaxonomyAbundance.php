@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TaxonomyAbundance
  *
  * @ORM\Table(name="taxonomy_abundance")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TaxonomyAbundanceRepository")
  */
 class TaxonomyAbundance
 {
@@ -75,17 +75,23 @@ class TaxonomyAbundance
      *
      * @ORM\Column(name="rank6_species", type="string", length=255, nullable=true)
      */
-    private $rank6Species;
+    private $rank7Species;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="rank7_strain", type="string", length=255, nullable=true)
+     * @ORM\Column(name="rank8_strain", type="string", length=255, nullable=true)
      */
-    private $rank7Strain;
+    private $rank8Strain;
+
+
+    public function __toString()
+    {
+        return "taxon ". $this->getId();
+    }
 
     /**
-     * @var \SampleFile
+     * @var SampleFile
      *
      * @ORM\ManyToOne(targetEntity="SampleFile")
      * @ORM\JoinColumns({
@@ -183,30 +189,6 @@ class TaxonomyAbundance
         return $this;
     }
 
-    public function getRank6Species(): ?string
-    {
-        return $this->rank6Species;
-    }
-
-    public function setRank6Species(?string $rank6Species): self
-    {
-        $this->rank6Species = $rank6Species;
-
-        return $this;
-    }
-
-    public function getRank7Strain(): ?string
-    {
-        return $this->rank7Strain;
-    }
-
-    public function setRank7Strain(?string $rank7Strain): self
-    {
-        $this->rank7Strain = $rank7Strain;
-
-        return $this;
-    }
-
     public function getFile(): ?SampleFile
     {
         return $this->file;
@@ -217,6 +199,42 @@ class TaxonomyAbundance
         $this->file = $file;
 
         return $this;
+    }
+
+    /**
+     * @param string|null $rank7Species
+     * @return TaxonomyAbundance
+     */
+    public function setRank7Species(?string $rank7Species): TaxonomyAbundance
+    {
+        $this->rank7Species = $rank7Species;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRank7Species(): ?string
+    {
+        return $this->rank7Species;
+    }
+
+    /**
+     * @param string|null $rank8Strain
+     * @return TaxonomyAbundance
+     */
+    public function setRank8Strain(?string $rank8Strain): TaxonomyAbundance
+    {
+        $this->rank8Strain = $rank8Strain;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRank8Strain(): ?string
+    {
+        return $this->rank8Strain;
     }
 
 

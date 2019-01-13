@@ -2,8 +2,10 @@
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="dashboard" >
-                    <i class="nav-icon icon-speedometer"></i> Dashboard
+                <a class="nav-link" href="{{ path('home') }}" >
+                    {#<i class="nav-icon icon-speedometer"></i>#}
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
                 </a>
             </li>
 
@@ -12,11 +14,11 @@
                     <i class="nav-icon fas fa-pencil-alt"></i> Project</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link " href="app_sample_list">
+                <a class="nav-link " href="{{ path('sample_index') }}">
                     <i class="nav-icon fas fa-atom"></i> Samples</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="app_samplefiles_list">
+                <a class="nav-link" href="{{ path('sample_file_index') }}">
                     <i class="nav-icon fas fa-file"></i> Files</a>
             </li>
 

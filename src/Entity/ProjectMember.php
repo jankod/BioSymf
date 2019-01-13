@@ -3,15 +3,21 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * ProjectMember
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="unique_idx", columns={"user_id", "project_id", "role"})})
+ * @ORM\Entity(repositoryClass="App\Repository\ProjectMemberRepository")
  */
 class ProjectMember
 {
+
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_PARTICIPANT = 'PARTICIPANT';
+
+
     /**
      * @var int
      *
@@ -33,7 +39,7 @@ class ProjectMember
      *
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="SET NULL")
      * })
      */
     private $project;
@@ -43,7 +49,7 @@ class ProjectMember
      * @var User
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
      *})
      */
     private $user;

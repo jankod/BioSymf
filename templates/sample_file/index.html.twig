@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SampleFile index{% endblock %}
+
+{% block body %}
+    <h1>SampleFile index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FileName</th>
+                <th>UpdatedAt</th>
+
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sample_file in sample_files %}
+            <tr>
+                <td>{{ sample_file.id }}</td>
+                <td>{{ sample_file.fileName }}</td>
+                <td>{{ sample_file.updatedAt ? sample_file.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td>{{ sample_file.type }}</td>
+                <td>
+                    <a href="{{ path('sample_file_show', {'id': sample_file.id}) }}">show</a>
+                    <a href="{{ path('sample_file_edit', {'id': sample_file.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('sample_file_new') }}">Create new</a>
+{% endblock %}

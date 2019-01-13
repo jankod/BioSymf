@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +39,21 @@ class Sample
      */
     private $project;
 
+    /**
+     * @var ArrayCollection|SampleFile[]
+     * @ORM\OneToMany(targetEntity="App\Entity\SampleFile", mappedBy="sample", orphanRemoval=true)
+     */
+    private $sampleFiles;
+
+
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +81,24 @@ class Sample
         $this->project = $project;
 
         return $this;
+    }
+
+    /**
+     * @param SampleFile[]|ArrayCollection $sampleFiles
+     * @return Sample
+     */
+    public function setSampleFiles($sampleFiles)
+    {
+        $this->sampleFiles = $sampleFiles;
+        return $this;
+    }
+
+    /**
+     * @return SampleFile[]|ArrayCollection
+     */
+    public function getSampleFiles()
+    {
+        return $this->sampleFiles;
     }
 
 

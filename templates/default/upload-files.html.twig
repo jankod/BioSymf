@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {% endblock %}
+
+{% block body %}
+
+    <h1>upload files</h1>
+
+    {#<form action="{{ path('') }}" method="post" multiple="multiple" enctype="multipart/form-data">#}
+    {#<input type="file" id="file" name="files[]" multiple="multiple" accept="*/*"/>#}
+    {#<input type="submit" value="Upload!"/>#}
+    {#</form>#}
+
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.files) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block my_js %}
+
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-label").removeClass("custom-file-label");
+            $(".custom-file-input").removeClass("custom-file-input");
+
+        });
+    </script>
+{% endblock %}

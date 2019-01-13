@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\ProjectMember;
 use App\Form\ProjectType;
+use App\Repository\ProjectMemberRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/projects")
+ * @IsGranted("ROLE_ADMIN")
  */
 class ProjectController extends AbstractController
 {
@@ -19,9 +23,8 @@ class ProjectController extends AbstractController
      */
     public function index(): Response
     {
-        $projects = $this->getDoctrine()
-            ->getRepository(Project::class)
-            ->findAll();
+        $projects = $this->getDoctrine()->getRepository(ProjectMember::class)
+            ->findProjectsOfUser($this->getUser());
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
@@ -44,6 +47,15 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
+            // Save user to ProjectMember
+            $projectMember = new ProjectMember();
+            $projectMember->setProject($project);
+            $projectMember->setUser($this->getUser());
+            $projectMember->setRole(ProjectMember::ROLE_ADMIN);
+            $entityManager->persist($projectMember);
+            $entityManager->flush();
+
+
             return $this->redirectToRoute('project_index');
         }
 
@@ -55,6 +67,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/{id}", name="project_show", methods={"GET"})
+     * @param Project $project
+     * @return Response
      */
     public function show(Project $project): Response
     {
@@ -96,7 +110,17 @@ class ProjectController extends AbstractController
      */
     public function delete(Request $request, Project $project): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+
+        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
+
+            /** @var ProjectMemberRepository $projectMemberRepository */
+            $projectMemberRepository = $this->getDoctrine()->getRepository(ProjectMember::class);
+
+            if (!$projectMemberRepository->isUserProjectAdmin($project, $this->getUser())) {
+                $this->createAccessDeniedException('Access denied for project!');
+            }
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
             $entityManager->flush();

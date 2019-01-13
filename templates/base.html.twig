@@ -31,7 +31,7 @@
         <div class="container-fluid">
             <div id="ui-view">
                 <div>
-                    <div >
+                    <div>
                         {#class="animated fadeIn"#}
                         {% block body %}{% endblock %}
                     </div>
@@ -50,7 +50,7 @@
         <a href="#">Bio web</a>
         <span>© 2018 creativeLabs.</span>
     </div>
-    <div class="m-2">User: --
+    <div class="m-2">User: {{ app.user.username|default('not login') }}
     </div>
     <div class="ml-auto">
         <span>Powered by</span>
@@ -64,6 +64,9 @@
     {#<script src="{{ asset('dist/runtime.js') }}"></script>#}
 
     {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block my_js %}
 {% endblock %}
 
 </body>
