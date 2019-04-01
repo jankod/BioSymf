@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
@@ -41,14 +42,14 @@ class Project
     private $description;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="start_date", type="datetime", nullable=true)
      */
     private $startDate;
 
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="end_date", type="datetime", nullable=true)
      */
     private $endDate;
@@ -118,37 +119,37 @@ class Project
     }
 
     /**
-     * @param \DateTime $startDate
+     * @param DateTime $startDate
      * @return Project
      */
-    public function setStartDate(?\DateTime $startDate): Project
+    public function setStartDate(?DateTime $startDate): Project
     {
         $this->startDate = $startDate;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getStartDate(): ?\DateTime
+    public function getStartDate(): ?DateTime
     {
         return $this->startDate;
     }
 
     /**
-     * @param \DateTime $endDate
+     * @param DateTime $endDate
      * @return Project
      */
-    public function setEndDate(?\DateTime $endDate): Project
+    public function setEndDate(?DateTime $endDate): Project
     {
         $this->endDate = $endDate;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getEndDate(): ?\DateTime
+    public function getEndDate(): ?DateTime
     {
         return $this->endDate;
     }

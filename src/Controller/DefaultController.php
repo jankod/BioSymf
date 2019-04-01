@@ -19,6 +19,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -48,6 +50,20 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/start-p", name="start-process")
+     * @return Response
+     */
+    public function startProcess() {
+        // C:\Programi\sts4\.workspace\LongProcess\dist>  java -jar long-running.jar
+        $process = new Process(['java', '-jar', 'C:/Programi/sts4/.workspace/LongProcess/dist/long-process.jar']);
+        $process->start(function () {
+            echo "Finish is";
+        });
+
+        return new Response('Process traje');
+    }
+
+    /**
      * @Route("/upload-files-form", name="upload-files-form")
      * @param Request $request
      * @param TaxonomyAbundanceRepository $taxonomyAbundanceRepository
@@ -57,7 +73,9 @@ class DefaultController extends AbstractController
     public function showUploadFilesForm(Request $request, TaxonomyAbundanceRepository $taxonomyAbundanceRepository)
     {
         $formModel = new FileUploadModel();
-        $form = $this->createForm(FileUploadFormType::class, $formModel);
+        $form = $this->createForm(FileUploadFormType::class, $formModel, [
+            'user' => $this->getUser()
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -163,6 +181,8 @@ class DefaultController extends AbstractController
 
         throw new \RuntimeException('Project is not from user admin');
     }
+
+
 
 }
 

@@ -19,26 +19,17 @@ class ProjectMemberRepository extends ServiceEntityRepository
 
     public function findProjectsOfUser(User $user)
     {
-
-        //SELECT pm, p FROM App\Entity\ProjectMember pm LEFT JOIN pm.project p where pm.user = :user
-        // SELECT p FROM App\Entity\Project p where p.id in ( select  pro.id from App\Entity\ProjectMember pm LEFT JOIN pm.project pro where pm.user = :user)
         $dql = <<<DQL
         SELECT p FROM App\Entity\Project p where p.id in ( select  pro.id from App\Entity\ProjectMember pm LEFT JOIN pm.project pro where pm.user = :user)
 DQL;
-
-
-        $projects = [];
         $result = $this->getEntityManager()->createQuery($dql)
             ->setParameter('user', $user)
             ->getResult();
 
-        /** @var ProjectMember $pm */
-//        foreach ($result as $pm) {
-//            $result[] = $pm->getProject();
-//        }
-        dump($result);
         return $result;
     }
+
+
 
     /**
      * @param Project $project

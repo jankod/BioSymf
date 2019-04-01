@@ -4,7 +4,11 @@ namespace App\Form;
 
 
 use App\Entity\Project;
+use App\Entity\ProjectMember;
 use App\Entity\SampleFile;
+use App\Entity\User;
+use App\Repository\ProjectMemberRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,6 +20,13 @@ use Symfony\Component\Form\AbstractType;
 
 class FileUploadFormType extends AbstractType
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,9 +49,12 @@ class FileUploadFormType extends AbstractType
             ->add('project', EntityType::class, [
                 'label' => 'Project',
                 'class' => Project::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder("p");
-                }
+//                'query_builder' => function (EntityRepository  $entityRepo) use ($options) {
+//                    $repository =  $this->entityManager->getRepository(ProjectMember::class);
+//                    //return $repository->findProjectsOfUser($options['user']);
+//                    return $entityRepo->createNamedQuery("")
+//                }
+                'choices' => $this->entityManager->getRepository(ProjectMember::class)->findProjectsOfUser($options['user'])
             ]);
 
         $builder->add('save', SubmitType::class, array(
@@ -50,6 +64,7 @@ class FileUploadFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('user');
         $resolver->setDefaults(array(
             'data_class' => FileUploadModel::class,
         ));
